@@ -1,0 +1,13 @@
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+
+  app:
+    image: php:7.4-fpm
+    volumes:
+      - ./:/var/www
