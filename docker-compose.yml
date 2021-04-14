@@ -5,9 +5,33 @@ services:
       - "80:80"
     volumes:
       - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - flexnetwork
 
   app:
-    image: php:7.4-fpm
+    build: ./docker/app
     volumes:
       - ./:/var/www
+    networks:
+      - flexnetwork
+
+  db:
+    image: mysql:5.7.22
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: flexadmin
+      MYSQL_DATABASE: flexinvoices
+    networks: 
+      - flexnetwork
+    volumes:
+      - dbdata:/var/lib/mysql
+
+networks:
+  flexnetwork:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
