@@ -1,16 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../app/InvoiceRepository.php';
+require_once __DIR__ . '/../app/InvoiceController.php';
 
-const INVOICES_PER_PAGE = 5;
+$request = explode('?', $_SERVER['REQUEST_URI'])[0];
 
-$page = array_key_exists('page', $_GET) ? $_GET['page'] : 1;
-$invoiceRepository = new InvoiceRepository();
-$invoices = $invoiceRepository->findAll();
-$totalInvoicePages = (int) ceil($invoices->count() / INVOICES_PER_PAGE);
-$invoices = $invoices->slice(
-	INVOICES_PER_PAGE * ($page - 1),
-	INVOICES_PER_PAGE
-);
-
-require_once __DIR__ . '/../resources/views/invoices/index.php';
+switch ($request) {
+	case '/':
+		(new InvoiceController())->index();
+		break;
+	default:
+		http_response_code(404);
+}
