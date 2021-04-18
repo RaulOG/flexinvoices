@@ -16,6 +16,11 @@ foreach ($invoices->toArray() as $invoice) {
 	echo '<td>' . $invoice->getStatus() . '</td>';
 	echo '<td>' . $invoice->getDate() . '</td>';
 	echo '<td>' . $invoice->getCreatedAt() . '</td>';
+	if ($invoice->isPaid()) {
+		echo '<td><form style="margin:0;" method="POST" action="/invoices/' . $invoice->getId() . '"><button name="status" value="unpaid" type="submit" class="btn btn-sm btn-danger">Set to unpaid</button></form></td>';
+	} else {
+		echo '<td><form style="margin:0;" method="POST" action="/invoices/' . $invoice->getId() . '"><button name="status" value="paid" type="submit" class="btn btn-sm btn-success">Set to paid</button></form></td>';
+	}
 	echo "</tr>";
 }
 ?>

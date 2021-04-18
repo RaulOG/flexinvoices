@@ -55,6 +55,11 @@ class Invoice
 		return $this->status;
 	}
 
+	public function setStatus(string $status)
+	{
+		$this->status = $status;
+	}
+
 	public function getDate(): string
 	{
 		return $this->date;
