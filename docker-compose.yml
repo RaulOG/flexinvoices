@@ -26,6 +26,7 @@ services:
     networks: 
       - flexnetwork
     volumes:
+      - ./docker/db:/docker-entrypoint-initdb.d
       - dbdata:/var/lib/mysql
 
 networks:
