@@ -10,6 +10,8 @@ class Invoice
 	private string $status;
 	private string $date;
 	private string $createdAt;
+	private const PAID = 'paid';
+	private const UNPAID = 'unpaid';
 
 	public function __construct($invoice)
 	{
@@ -61,5 +63,28 @@ class Invoice
 	public function getCreatedAt(): string
 	{
 		return $this->createdAt;
+	}
+
+	public function isPaid(): bool
+	{
+		return $this->getStatus() === SELF::PAID;
+	}
+
+	public function getPaidAmount(): float
+	{
+		if ($this->getStatus() === self::PAID) {
+			return $this->getAmount();
+		}
+
+		return 0;
+	}
+
+	public function getUnpaidAmount(): float
+	{
+		if ($this->getStatus() === self::PAID) {
+			return 0;
+		}
+
+		return $this->getAmount();
 	}
 }

@@ -8,6 +8,12 @@ switch ($request) {
 	case '/':
 		(new InvoiceController())->index();
 		break;
+	case '/export':
+		(new InvoiceController())->export();
+		break;
+	case '/export_by_company':
+		(new InvoiceController())->exportByCompany();
+		break;
 	default:
 		http_response_code(404);
 }
